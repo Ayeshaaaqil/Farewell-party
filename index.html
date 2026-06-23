@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Tribute to Dr. Ayesha Ahmad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ATTRACTION INTENSE COLOR SYSTEM --- */
+        :root {
+            --bg-deep-velvet: #0d0518;
+            --bg-purple-gradient: radial-gradient(circle at center, #1f0b35 0%, #0d0518 100%);
+            --gold-primary: #f3ca40;
+            --gold-secondary: #c49a20;
+            --gold-light: #fff0b3;
+            --gold-gradient: linear-gradient(135deg, #fff0b3 0%, #f3ca40 50%, #a37a00 100%);
+            --glass-bg: rgba(31, 11, 53, 0.45);
+            --glass-border: rgba(243, 202, 64, 0.25);
+            --text-light: #ffffff;
+            --text-muted: #d6c7e8;
+            --glow-color: rgba(243, 202, 64, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-purple-gradient);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #canvas-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+        }
+
+        /* --- LANDING PAGE --- */
+        #landing-page {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--bg-purple-gradient);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: all 1s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+
+        #landing-page.exit {
+            transform: translateY(-100vh);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .landing-content { max-width: 800px; z-index: 2; }
+
+        .premium-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: transparent;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px var(--glow-color);
+        }
+
+        .landing-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .enter-btn {
+            font-family: 'Cinzel', serif;
+            background: transparent;
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            border-radius: 50px; /* Rounded button for modern look */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 15px rgba(243, 202, 64, 0.1);
+        }
+
+        .enter-btn:hover {
+            color: var(--bg-deep-velvet);
+            background: var(--gold-gradient);
+            box-shadow: 0 0 30px rgba(243, 202, 64, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* --- MAIN CONTENT --- */
+        #main-content {
+            position: relative;
+            z-index: 2;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        #main-content.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+
+        /* Celebration Banner */
+        .celebration-banner {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1.2s ease;
+        }
+
+        .celebration-banner h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.2rem;
+            color: transparent;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(243, 202, 64, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .celebration-banner p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* Layout Grid */
+        .tribute-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .photo-column { display: flex; justify-content: center; }
+        
+        .premium-frame {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 4 / 5;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; /* Smooth rounded corners */
+            padding: 15px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(243, 202, 64, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .photo-placeholder {
+            width: 100%; height: 100%;
+            background: linear-gradient(45deg, #140526, #2d114c, #4a154b);
+            border-radius: 12px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: var(--gold-light); font-family: 'Cinzel', serif;
+            border: 1px solid rgba(243, 202, 64, 0.2);
+        }
+
+        .message-column {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 45px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .message-text p {
+            font-size: 1.1rem; line-height: 1.9; color: #f3f0f7; margin-bottom: 20px; text-align: justify; font-weight: 300;
+        }
+
+        .signature { margin-top: 30px; border-top: 1px solid rgba(243, 202, 64, 0.2); padding-top: 20px; }
+        .signature-team { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--gold-primary); letter-spacing: 1px;}
+
+        /* Quote Box */
+        .quote-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(243, 202, 64, 0.03);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .quote-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--gold-light);
+            text-shadow: 0 0 10px rgba(243, 202, 64, 0.2);
+        }
+
+        /* --- BALLOONS & EMOJIS CELEBRATION ELEMENT --- */
+        .celebration-element {
+            position: fixed;
+            bottom: -100px;
+            font-size: 2.5rem;
+            z-index: 1000;
+            pointer-events: none;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .tribute-grid { grid-template-columns: 1fr; gap: 40px; }
+            .premium-title { font-size: 2.3rem; }
+            .celebration-banner h2 { font-size: 2.2rem; }
+            .quote-text { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-particles"></canvas>
+
+    <!-- 1. LANDING PAGE -->
+    <section id="landing-page">
+        <div class="landing-content">
+            <h1 class="premium-title">A Tribute to Dr. Ayesha Ahmad</h1>
+            <p class="landing-subtitle">Thank you for your guidance, support, and dedication.</p>
+            <button class="enter-btn" onclick="enterExperience()">Enter Experience</button>
+        </div>
+    </section>
+
+    <!-- 2. MAIN TRIBUTE CONTENT -->
+    <main id="main-content">
+        <div class="container">
+            
+            <!-- Beautiful Dynamic Banner (Mix of Thank You & We Miss You Vibe) -->
+            <div class="celebration-banner">
+                <h2>🎉 Thank You, Dr. Ayesha Ahmad! 🌟</h2>
+                <p>Your guidance has shaped our journey. You will be deeply missed!</p>
+            </div>
+            
+            <section class="tribute-grid">
+                <!-- Photo Frame -->
+                <div class="photo-column">
+                    <div class="premium-frame">
+                        <div class="photo-placeholder">
+                            <span style="font-size: 3.5rem; text-shadow: 0 0 15px var(--gold-primary);">⚜️</span>
+                            <span style="margin-top: 15px; letter-spacing: 2px; font-weight: 600;">Dr. Ayesha</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Card -->
+                <div class="message-column">
+                    <div class="message-text">
+                        <p><strong>Dear Dr. Ayesha Ahmad,</strong></p>
+                        <p>Thank you for being an exceptional mentor, guide, and Batch Incharge. Your dedication, patience, encouragement, and continuous support have played a significant role in our academic journey.</p>
+                        <p>Your guidance has inspired us to grow with confidence, professionalism, and determination. The lessons you taught us extend beyond the classroom and will remain with us throughout our careers.</p>
+                        <p>We sincerely appreciate your efforts, kindness, and commitment. Your positive influence will always be remembered.</p>
+                        <p>We wish you happiness, success, and countless achievements in the future.</p>
+                    </div>
+                    <div class="signature">
+                        <div class="signature-team">With gratitude and respect,<br>Your Students</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Centered Impact Quote Section -->
+            <section class="quote-section">
+                <p class="quote-text">"A great teacher inspires confidence, nurtures growth, and leaves a lasting impact on every student."</p>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        function enterExperience() {
+            document.getElementById('landing-page').classList.add('exit');
+            const mainContent = document.getElementById('main-content');
+            mainContent.classList.add('visible');
+
+            // Balloons and Emojis burst effect
+            for (let i = 0; i < 45; i++) {
+                setTimeout(createCelebrationElement, i * 110);
+            }
+        }
+
+        const emojis = ['🎈', '🎈', '🎉', '✨', '🌟', '💖', '🎓', '👏'];
+        function createCelebrationElement() {
+            const element = document.createElement('div');
+            element.classList.add('celebration-element');
+            element.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+            element.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            
+            document.body.appendChild(element);
+            setTimeout(() => { element.remove(); }, 5000);
+        }
+
+        // --- GLOWING GOLD/PURPLE PARTICLES ---
+        const canvas = document.getElementById('canvas-particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+
+        class GoldParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedY = Math.random() * -0.25 - 0.1;
+                this.glow = Math.random() > 0.5;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y < 0) { this.y = canvas.height; this.x = Math.random() * canvas.width; }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.glow ? 'rgba(255, 240, 179, 0.5)' : 'rgba(243, 202, 64, 0.3)';
+                ctx.fill();
+            }
+        }
+
+        for(let i=0; i<60; i++) particles.push(new GoldParticle());
+        function anim() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(anim);
+        }
+        anim();
+    </script>
+</body>
+</html>
