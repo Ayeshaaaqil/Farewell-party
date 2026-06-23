@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You Dr. Ayesha</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+    overflow:hidden;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:25px;
+    padding:40px;
+    display:flex;
+    gap:40px;
+    animation:fadeIn 2s ease;
+    box-shadow:0 0 30px rgba(212,175,55,.25);
+}
+
+.left{
+    flex:1;
+    text-align:center;
+}
+
+.left img{
+    width:280px;
+    height:350px;
+    object-fit:cover;
+    border-radius:20px;
+    border:4px solid #D4AF37;
+    box-shadow:0 0 20px rgba(212,175,55,.5);
+}
+
+.left h2{
+    color:#fff;
+    margin-top:20px;
+}
+
+.left p{
+    color:#D4AF37;
+    margin-top:10px;
+}
+
+.right{
+    flex:1.5;
+    color:white;
+}
+
+.heading{
+    color:#D4AF37;
+    font-size:2rem;
+    margin-bottom:20px;
+}
+
+.message{
+    line-height:1.8;
+    font-size:1.05rem;
+}
+
+.quote{
+    margin-top:30px;
+    font-style:italic;
+    color:#D4AF37;
+}
+
+.footer{
+    margin-top:25px;
+    font-weight:bold;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(212,175,55,0.12);
+    animation:float 8s infinite ease-in-out;
+}
+
+.c1{
+    width:200px;
+    height:200px;
+    top:10%;
+    left:5%;
+}
+
+.c2{
+    width:300px;
+    height:300px;
+    bottom:5%;
+    right:5%;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-25px);
+    }
+}
+
+@media(max-width:900px){
+    .container{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="circle c1"></div>
+<div class="circle c2"></div>
+
+<div class="container">
+
+    <div class="left">
+        <!-- Apni image ka path yahan dein -->
+        <img src="ayesha.jpg" alt="Dr Ayesha">
+
+        <h2>Dr. Ayesha</h2>
+        <p>Batch Incharge</p>
+        <p>4 Semesters of Guidance & Support</p>
+    </div>
+
+    <div class="right">
+
+        <h1 class="heading">
+            Thank You, Dr. Ayesha
+        </h1>
+
+        <div class="message">
+            Dear Ma'am,
+
+            Four semesters ago, you became our Batch Incharge,
+            but throughout this journey you became much more
+            than that — a mentor, guide, and source of motivation.
+
+            Your dedication, patience, and encouragement helped
+            us grow academically and professionally. Every lesson,
+            every piece of advice, and every moment of support
+            has left a lasting impact on our lives.
+
+            As you move forward toward new opportunities,
+            we want you to know that your efforts will always
+            be remembered and appreciated.
+
+            Thank you for believing in us and standing beside us
+            throughout our journey.
+
+            We wish you success, happiness, and countless achievements ahead.
+        </div>
+
+        <div class="quote">
+            "A great teacher inspires hope, ignites imagination,
+            and leaves a lasting impact on every student."
+        </div>
+
+        <div class="footer">
+            — With Gratitude, DPT Batch ❤️
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
